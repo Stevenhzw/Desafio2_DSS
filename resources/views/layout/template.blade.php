@@ -27,7 +27,7 @@
           Empleados
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="{{url('/productos/index')}}">Productos</a>
+          <a class="dropdown-item" href="{{url('/productos/create')}}">Productos</a>
           <a class="dropdown-item" href="{{url('/index')}}">Ventas</a>
         </div>
       </li>
@@ -36,9 +36,9 @@
           Administrador
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">Usuarios</a>
+          <a class="dropdown-item" href="">Usuarios</a>
           <a class="dropdown-item" href="#">Clientes</a>
-          <a class="dropdown-item" href="#">Categorias</a>
+          <a class="dropdown-item" href="{{url('/categorias')}}">Categorias</a>
         </div>
       </li>
       @endif
@@ -55,11 +55,13 @@
       @endif
       @endif
     </ul>
+    @if (Auth::check())
     <form action="{{ route('logout') }}" method="POST" class="form-inline" role="search">
                 @csrf
                 @method('DELETE')
                 <button class="btn btn-danger my-2 my-sm-0" type="submit">Cerrar sesion</button>
             </form>
+            @endif
   </div>
 </nav>
 <body>

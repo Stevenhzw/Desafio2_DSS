@@ -4,5 +4,5 @@
 
 @section('content')
 
-<h3>homlam</h3>
+<h3>index</h3>
 @endsection

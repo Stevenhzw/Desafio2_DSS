@@ -47,14 +47,7 @@ class AuthController extends Controller
      
         if(auth()->attempt(array('email' => $input['email'], 'password' => $input['password'], 'estado' => $input['estado'])))
         {
-            if (auth()->user()->rol == 'administrador') {
-                return redirect('/admin')->with('success', 'Login Success');
-            }else if (auth()->user()->rol == 'empleado') {
-                return redirect('/empleado')->with('success', 'Login Success');
-            }else if (auth()->user()->rol == 'usuario') {
-                return redirect('/home')->with('success', 'Login Success');
-            }
-        
+            return redirect('/home')->with('success', 'Login Success');
         }else{
             return redirect()->route('login')
                 ->with('error','Correo o contraseña incorrectos');

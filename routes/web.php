@@ -20,6 +20,8 @@ use App\Http\Controllers\ProductoController;
 Route::get('/', function () {
     return view('welcome');
 });
+
+
  
 Route::group(['middleware' => 'guest'], function () {
     Route::get('/register', [AuthController::class, 'register'])->name('register');
@@ -28,10 +30,19 @@ Route::group(['middleware' => 'guest'], function () {
     Route::post('/login', [AuthController::class, 'loginPost'])->name('login');
 });
  
-Route::get('/index', 'ProductoController@index')->name('index');
+
 Route::group(['middleware' => 'auth'], function () {
-    Route::get('/admin', [HomeController::class, 'admin']);
-    Route::get('/empleado', [HomeController::class, 'empleado']);
     Route::get('/home', [HomeController::class, 'index']);
     Route::delete('/logout', [AuthController::class, 'logout'])->name('logout');
 });
+
+
+
+
+Route::resource('productos',ProductoController::class);
+
+Route::controller(CategoriaController::class)->group(function () {
+    Route::get('/categorias/create', 'create');
+    Route::get('/categorias/edit/{id}', 'edit');
+    Route::get('/categorias/delete/{id}', 'delete');
+    Route::get('/categorias', 'index');});
