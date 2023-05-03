@@ -30,7 +30,11 @@
                         <input type="hidden" name="estado" class="form-control" id="estado" value="1" required>
                         <div class="mb-3">
                             <div class="d-grid">
-                                <button class="btn btn-primary">Login</button>
+                                <button class="btn btn-primary">Inicar sesion</button>
+                               
+                            </div>
+                            <div class="d-grid">
+                            <p>Eres nuevo? <a href="{{url('/register')}}">crea una cuenta</a></p>
                             </div>
                         </div>
                     </form>

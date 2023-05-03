@@ -1,8 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Spatie\LaravelIgnition\Recorders\DumpRecorder\Dump;
 
 class UserController extends Controller
 {
@@ -11,7 +13,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        $usuarios= user::get();
+        return view('usuarios.index', compact('usuarios'));
     }
 
     /**
@@ -19,7 +22,22 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        return view('usuarios.create');
+    }
+ 
+    public function registerPost(Request $request)
+    {
+        $user = new User();
+ 
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = Hash::make($request->password);
+        $user->estado = $request->estado;
+        $user->rol = $request->rol;
+ 
+        $user->save();
+ 
+        return back()->with('success', 'Register successfully');
     }
 
     /**
@@ -27,23 +45,34 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+        $user = new User();
+ 
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = Hash::make($request->password);
+        $user->estado = $request->estado;
+        $user->rol = $request->rol;
+ 
+        $user->save();
+ 
+        return to_route('usuarios.index');  
+      }
 
     /**
      * Display the specified resource.
      */
     public function show(string $id)
     {
-        //
+        return view('usuarios.show', ['usuarios' => $usuarios]);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(User $user)
     {
-        //
+        $usuarios= user::get();
+        return view('usuarios.edit',compact('usuarios'));
     }
 
     /**

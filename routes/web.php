@@ -4,7 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductoController;
-
+use App\Http\Controllers\CategoriaController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,7 +19,7 @@ use App\Http\Controllers\ProductoController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home');
 });
 
 
@@ -37,12 +38,18 @@ Route::group(['middleware' => 'auth'], function () {
 });
 
 
-
-
-Route::resource('productos',ProductoController::class);
+Route::controller(ProductoController::class)->group(function () {
+    Route::get('/productos/edit/{id}', 'edit');
+});
 
 Route::controller(CategoriaController::class)->group(function () {
-    Route::get('/categorias/create', 'create');
     Route::get('/categorias/edit/{id}', 'edit');
-    Route::get('/categorias/delete/{id}', 'delete');
-    Route::get('/categorias', 'index');});
+});
+Route::controller(UserController::class)->group(function () {
+    Route::get('/usuarios/edit/{id}', 'edit');
+});
+
+Route::resource('usuarios',UserController::class);
+Route::resource('productos',ProductoController::class);
+Route::resource('categorias',CategoriaController::class);
+

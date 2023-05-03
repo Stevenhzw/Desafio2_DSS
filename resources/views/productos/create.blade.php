@@ -39,12 +39,16 @@
                 </div>
             </div>
             <div class="form-group">
+            
                 <label for="categoria">categoria del producto:</label>
-                <div class="input-group">
-                    <input type="text" class="form-control" name="categoria" id="categoria"   placeholder="Ingresa la categoria del producto" >
-                    <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
-                </div>
-            </div>
+            <div class="input-group">
+                    <select name="categoria" class="form-control" id="categoria">
+                    @foreach($categorias as $categoria)
+                        <option value="{{$categoria->id_cate}}" selected>{{$categoria->nombre}}</option>
+                    @endforeach
+                    </select>
+                    </div>
+                    </div>
             <div class="form-group">
                 <label for="precio">Precio del producto:</label>
                 <div class="input-group">
@@ -71,4 +75,5 @@
             <a class="btn btn-danger" href="#">Cancelar</a>
         </form>
     </div>
+     </div>
 @endsection

@@ -35,6 +35,10 @@
                         <div class="mb-3">
                             <div class="d-grid">
                                 <button class="btn btn-primary">Registrarse</button>
+                                
+                            </div>
+                            <div class="d-grid">
+                            <p>Ya tienes cuenta? <a href="{{url('/login')}}">iniciar sesion</a></p>
                             </div>
                         </div>
                     </form>

@@ -27,7 +27,7 @@
           Empleados
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="{{url('/productos/create')}}">Productos</a>
+          <a class="dropdown-item" href="{{url('/productos')}}">Productos</a>
           <a class="dropdown-item" href="{{url('/index')}}">Ventas</a>
         </div>
       </li>
@@ -36,7 +36,7 @@
           Administrador
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="">Usuarios</a>
+          <a class="dropdown-item" href="{{url('/usuarios')}}">Usuarios</a>
           <a class="dropdown-item" href="#">Clientes</a>
           <a class="dropdown-item" href="{{url('/categorias')}}">Categorias</a>
         </div>
@@ -61,6 +61,9 @@
                 @method('DELETE')
                 <button class="btn btn-danger my-2 my-sm-0" type="submit">Cerrar sesion</button>
             </form>
+            @else
+            <a class="btn btn-primary my-2 my-sm-0" href="{{url('/login')}}">Iniciar sesion</a>
+            <a class="btn btn-primary my-2 my-sm-0" href="{{url('/register')}}">Registrarse</a>
             @endif
   </div>
 </nav>

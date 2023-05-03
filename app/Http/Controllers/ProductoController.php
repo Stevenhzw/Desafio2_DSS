@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Categoria;
+use App\Models\Producto;
 use Illuminate\Http\Request;
-use APP\Models\Producto;
 use Spatie\LaravelIgnition\Recorders\DumpRecorder\Dump;
 
 class ProductoController extends Controller
@@ -16,15 +17,21 @@ class ProductoController extends Controller
     
     public function index()
     {
-        return view('productos.index');
+        //return view('productos.index');
+        $productos= producto::get();
+        $categorias= categoria::get();
+        return view('productos.index', compact('productos'),compact('categorias'));
+        
     }
+
 
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
-        return view('productos.create');
+        $categorias= categoria::get();
+        return view('productos.create', compact('categorias'));
     }
 
     /**
@@ -46,7 +53,7 @@ class ProductoController extends Controller
         $producto->id_prod = $request->input('id_prod');
         $producto->nombre = $request->input('nombre');
         $producto->descripcion = $request->input('descripcion');
-        $producto->categoria = $request->input('categoria');
+        $producto->categoria = $request->option('categoria');
         $producto->precio = $request->input('precio');
         $producto->existencias = $request->input('existencias');
         $producto->imagen = $request->input('imagen');
@@ -71,17 +78,37 @@ class ProductoController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+
+
+    public function edit(Producto $producto)
     {
-        //
+    
+        $productos= producto::get();
+        $categorias= categoria::get();
+        return view('productos.edit', compact('producto'),compact('categorias'));
+       
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Producto $producto)
     {
-        //
+        $request->validate([
+            'id_prod'=>['required'],
+            'nombre'=>['required'],
+            'descripcion'=>['required'],
+            'categoria'=>['required'],
+            'precio'=>['required'],
+            'existencias'=>['required'],
+            'imagen'=>['required']
+        ]);
+
+        $input = $request->all();
+
+        $producto->update($input);
+
+        return redirect()->route('productos.index');
     }
 
     /**
