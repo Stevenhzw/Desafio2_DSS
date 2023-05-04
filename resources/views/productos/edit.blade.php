@@ -71,7 +71,7 @@
             <div class="form-group">
                 <label for="imagen">Imagen del producto:</label>
                 <div class="input-group">
-                    <input type="text" class="form-control" name="imagen" id="imagen" value="{{$producto->imagen}}"  placeholder="Ingresa la Imagen del producto" >
+                    <input type="text" class="form-control" name="imagen" id="imagen" value="{{$producto->imagen}}" readonly placeholder="Ingresa la Imagen del producto" >
                     <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
                 </div>
             </div>

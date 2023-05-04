@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Spatie\LaravelIgnition\Recorders\DumpRecorder\Dump;
 
-class UserController extends Controller
+class ClienteController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +14,7 @@ class UserController extends Controller
     public function index()
     {
         $usuarios= user::get();
-        return view('usuarios.index', compact('usuarios'));
+        return view('clientes.index', compact('usuarios'));
     }
 
     /**
@@ -22,7 +22,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('usuarios.create');
+        return view('clientes.create');
     }
  
     public function registerPost(Request $request)
@@ -63,29 +63,29 @@ class UserController extends Controller
         $usuario->estado = $request->input('estado');
         $usuario->rol = $request->input('rol');
         $usuario->save();
-        return to_route('usuarios.index');  
+        return to_route('clientes.index');  
       }
     /**
      * Display the specified resource.
      */
     public function show(string $id)
     {
-        return view('usuarios.show', ['usuarios' => $usuarios]);
+        return view('clientes.show', ['clientes' => $clientes]);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(User $usuario)
+    public function edit(User $cliente)
     {
-        $usuarios= user::get();
-        return view('usuarios.edit',compact('usuario'));
+        $clientes= user::get();
+        return view('clientes.edit',compact('cliente'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, User $usuario)
+    public function update(Request $request, User $cliente)
     {
         $request->validate([
             'name'=>['required'],
@@ -97,18 +97,18 @@ class UserController extends Controller
 
         $input = $request->all();
 
-        $usuario->update($input);
+        $cliente->update($input);
 
-        return redirect()->route('usuarios.index');
+        return redirect()->route('clientes.index');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(User $usuario)
+    public function destroy(User $cliente)
     {
-        $usuario->delete();
-        return redirect()->route('usuarios.index')
+        $cliente->delete();
+        return redirect()->route('clientes.index')
                         ->with('success','usuario eliminado exitosamente');
     }
 }

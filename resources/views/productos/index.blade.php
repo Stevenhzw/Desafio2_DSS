@@ -3,7 +3,7 @@
 @section('content')
 
 
-<p>Lista de Productos</p>
+<h3>Lista de Productos</h3>
 <a class="btn btn-success" href="/productos/create">Añadir Nuevo Producto</a>
 <table class="table table-bordered">
     <tr>
@@ -29,7 +29,13 @@
         <td>{{$producto->existencias}}</td>
         <td>{{$producto->imagen}}</td>
         <td><a class="btn btn-primary" href="{{ route('productos.edit',$producto->id_prod)}}">Modificar</a></td>
-        <td><a class="btn btn-danger" href="{{url('/productos/delete')}}">Eliminar</a></td>
+        <td>
+        <form action=" {{route('productos.destroy',$producto->id_prod) }}" method="POST">
+                   @csrf
+    @method('DELETE')
+        <button type="submit" class="btn btn-danger">Eliminar</button>
+    </form>
+        </td>
     </tr>
     @endforeach
 </table>

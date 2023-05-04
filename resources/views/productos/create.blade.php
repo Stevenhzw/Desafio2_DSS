@@ -14,7 +14,7 @@
                 @endforeach
             </div>
         @endif
-        <form role="form" action="{{route('productos.store')}}"  method="POST">
+        <form role="form" action="{{route('productos.store')}}"  method="POST" enctype="multipart/form-data">
             @csrf
             <div class="well well-sm"><strong><span class="glyphicon glyphicon-asterisk"></span>Campos requeridos</strong></div>
             <div class="form-group">
@@ -66,7 +66,7 @@
             <div class="form-group">
                 <label for="imagen">Imagen del producto:</label>
                 <div class="input-group">
-                    <input type="text" class="form-control" name="imagen" id="imagen"   placeholder="Ingresa la Imagen del producto" >
+                <input type="file" name="imagen" class="form-control" placeholder="image">
                     <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
                 </div>
             </div>

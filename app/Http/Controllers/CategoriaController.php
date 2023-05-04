@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Producto;
 use App\Models\Categoria;
 use Illuminate\Http\Request;
 use Spatie\LaravelIgnition\Recorders\DumpRecorder\Dump;
@@ -15,7 +16,8 @@ class CategoriaController extends Controller
     {
 //        return view('categorias.index');
         $categorias= categoria::get();
-        return view('categorias.index', compact('categorias'));
+        $productos= producto::get();
+        return view('categorias.index', compact('categorias'),compact('productos'));
         
     }
 
@@ -80,8 +82,10 @@ class CategoriaController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Categoria $categoria)
     {
-        //
+        $categoria->delete();
+        return redirect()->route('categorias.index')
+                        ->with('success','Categoria eliminada exitosamente');
     }
 }

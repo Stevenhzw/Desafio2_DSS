@@ -3,7 +3,7 @@
 @section('content')
 
 
-<p>Lista de Usuarios</p>
+<h3>Lista de Usuarios</h3>
 <a class="btn btn-success" href="/usuarios/create">Añadir Nuevo Usuario</a>
 <div class="table-responsive">
 <table class="table table-bordered">
@@ -21,16 +21,24 @@
     </thead>
     <tbody>
     @foreach($usuarios as $usuario)
+    @if($usuario->rol == 'administrador' || $usuario->rol == 'empleado' )
     <tr>
         <td>{{$usuario->id}}</td>
         <td>{{$usuario->name}}</td>
         <td>{{$usuario->email}}</td>
         <td>{{$usuario->password}}</td>
-        <td>{{$usuario->estado}}</td>
+        <td>@if($usuario->rol == 'administrador')Cuenta de administrador @elseif($usuario->estado == 1)Activo @else Inactivo @endif</td>
         <td>{{$usuario->rol}}</td>
         <td><a class="btn btn-primary" href="{{ route('usuarios.edit',$usuario->id)}}">Modificar</a></td>
-        <td><a class="btn btn-danger" href="{{url('/usuarios/delete')}}">Eliminar</a></td>
+        <td>
+        <form action=" {{route('usuarios.destroy',$usuario->id) }}" method="POST">
+                   @csrf
+    @method('DELETE')
+        <button type="submit" class="btn btn-danger">Eliminar</button>
+    </form>
+        </td>
     </tr>
+    @endif
     @endforeach
     </tbody>
 </table>

@@ -19,6 +19,11 @@ class User extends Authenticatable
      * @var array
 
      */
+
+    protected $table = 'users';
+	protected $primaryKey = 'id';
+	public $timestamps = false;
+
     protected $fillable = [
         'id',
         'name',
@@ -28,7 +33,7 @@ class User extends Authenticatable
         'rol',
         'type'
     ];
-  
+    
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -48,18 +53,11 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'estado' => 'int'
     ];
  
-    /**
-     * Interact with the user's first name.
-     *
-     * @param  string  $value
-     * @return \Illuminate\Database\Eloquent\Casts\Attribute
-     */
-    protected function type(): Attribute
-    {
-        return new Attribute(
-            get: fn ($value) =>  ["user", "admin", "manager"][$value],
-        );
-    }
+   
+    
+        
+    
 }

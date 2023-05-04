@@ -45,19 +45,39 @@ class ProductoController extends Controller
             'descripcion'=>['required'],
             'categoria'=>['required'],
             'precio'=>['required'],
-            'existencias'=>['required'],
-            'imagen'=>['required']
+            'existencias'=>['required'],    
+            'imagen'
         ]);
         
-        $producto=new Producto();
+        /*$producto=new Producto();
         $producto->id_prod = $request->input('id_prod');
         $producto->nombre = $request->input('nombre');
         $producto->descripcion = $request->input('descripcion');
-        $producto->categoria = $request->option('categoria');
+        $producto->categoria = $request->input('categoria');
         $producto->precio = $request->input('precio');
-        $producto->existencias = $request->input('existencias');
-        $producto->imagen = $request->input('imagen');
-        $producto->save();
+        $producto->existencias = $request->input('existencias');*/
+       
+
+       /* if ($image = $request->file('image')) {
+            $destinationPath = '../../resources/imag/';
+            $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
+            $image->move($destinationPath, $profileImage);
+            $input['image'] = "$profileImage";
+        }*/
+        $input = $request->all();
+        
+        if ($image = $request->file('imagen')) {
+            $destinationPath = '../public/img/';
+            $ruta = $image->store('img/');
+            $profileImage = time() . '-' . $image->getClientOriginalName();
+            $image->move($destinationPath, $profileImage);
+            $input['imagen'] = "$profileImage";
+        }
+        
+      
+        Producto::create($input);
+
+      //  $producto->save();
         return to_route('productos.index');
     }
     
@@ -114,8 +134,10 @@ class ProductoController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Producto $producto)
     {
-        //
+        $producto->delete();
+        return redirect()->route('productos.index')
+                        ->with('success','Producto eliminado exitosamente');
     }
 }
